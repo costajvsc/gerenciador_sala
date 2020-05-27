@@ -13,10 +13,14 @@ class ALunoController
 
     public function store(Request $request)
     {
-        Aluno::create([
+        $aluno = Aluno::create([
             'nome_aluno' => $request->nome_aluno,
             'email_aluno' => $request->email_aluno,
             'telefone' => $request->telefone]);
-        return response()->json('Aluno inserido com sucesso', 201);
-    }
+
+        if(!empty($aluno))
+            return response()->json('Aluno inserido com sucesso', 201);
+
+        return response()->json('Erro ao inserir aluno', 404);
+    }   
 }
