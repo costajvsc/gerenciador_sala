@@ -18,9 +18,33 @@ class ALunoController
             'email_aluno' => $request->email_aluno,
             'telefone' => $request->telefone]);
 
-        if(!empty($aluno))
-            return response()->json('Aluno inserido com sucesso', 201);
-
-        return response()->json('Erro ao inserir aluno', 404);
+        if(empty($aluno))
+            return response()->json('Erro ao inserir aluno', 404);
+        
+        return response()->json('Aluno inserido com sucesso', 201);
     }   
+
+    public function show(int $id_aluno)
+    {
+        $aluno = Aluno::find($id_aluno);        
+        if(is_null($aluno))
+            return response()->json('',204);
+
+        return response()->json($aluno);
+    }
+
+    public function destroy(int $id_aluno)
+    {
+        $qnt = Aluno::destroy($id_aluno);
+
+        if($qnt === 0)
+            return response()->json(['error' => 'Erro ao remover aluno'], 404);
+
+        return response()->json('Aluno removido com sucesso', 204);
+    }   
+
+    public function update()
+    {
+        # code...
+    }
 }

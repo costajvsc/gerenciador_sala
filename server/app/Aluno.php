@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 class Aluno extends Model
 {
     public $timestamps = false;
-    protected $fillable = ['nome_aluno', 'email_aluno', 'telefone'];
+    protected $primaryKey = 'id_aluno';
+    protected $fillable = ['id_aluno','nome_aluno', 'email_aluno', 'telefone'];
 }
