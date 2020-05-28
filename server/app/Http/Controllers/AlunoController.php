@@ -27,6 +27,7 @@ class ALunoController
     public function show(int $id_aluno)
     {
         $aluno = Aluno::find($id_aluno);        
+        
         if(is_null($aluno))
             return response()->json('',204);
 
@@ -43,8 +44,16 @@ class ALunoController
         return response()->json('Aluno removido com sucesso', 204);
     }   
 
-    public function update()
+    public function update(int $id_aluno, Request $request)
     {
-        # code...
+        $aluno = Aluno::find($id_aluno);
+
+        if(is_null($aluno))
+            return response()->json('',204);
+
+        $aluno->fill($request->all());
+        $aluno->save();
+
+        return response()->json($aluno);
     }
 }
