@@ -1,18 +1,18 @@
-class ListAlunos {
+class ListChamada {
     constructor(){
         this._lista = []
     }
 
-    push(aluno)
+    push(chamada)
     {
-        this._lista.push(aluno)
+        this._lista.push(chamada)
     }
 
     pop(){
         this._lista = []
     }
 
-    get alunos(){
+    get chamadas(){
         return this._lista
     }
 }

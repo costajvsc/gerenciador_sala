@@ -9,7 +9,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/ea792fee87.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <title>Gerenciador de Salas - Aluno</title>
+    <title>Gerenciador de Salas - Disciplina</title>
 </head>
 <body>
     <head>
@@ -21,7 +21,7 @@
                         <a class="nav-link" href="#">Reservas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Salas</a>
+                        <a class="nav-link" href="sala.html">Salas</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -29,8 +29,8 @@
                         </a>
                         <div class="dropdown-menu" >
                             <a class="dropdown-item" href="aluno.html">Alunos</a>
-                            <a class="dropdown-item" href="#">Professores</a>
-                            <a class="dropdown-item" href="#">Disciplina</a>
+                            <a class="dropdown-item" href="professor.html">Professores</a>
+                            <a class="dropdown-item" href="disciplina.html">Disciplina</a>
                             <a class="dropdown-item" href="#">Turmas</a>
                             <a class="dropdown-item" href="#">Chamada</a>
                         
@@ -43,13 +43,13 @@
     </head>
     
     <main class="container">
-        <h1>Salas</h1>
+        <h1>Disciplinas</h1>
 
-        <table id="table_alunos" class="table table-bordered">
+        <table id="table_disciplina" class="table table-bordered">
             
         </table>
 
-        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modal" onclick="aluno.clearForm()">
+        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modal" onclick="disciplina.clearForm()">
             Adicionar
         </button>
 
@@ -66,23 +66,11 @@
                     <div class="modal-body">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                                <span class="input-group-text" id="basic-addon2"><i class="fas fa-book"></i></span>
                             </div>
-                            <input type="text" id="nome_aluno" class="form-control" placeholder="Nome do aluno" required>
+                            <input type="text" id="nome_disciplina" class="form-control" placeholder="Nome da disciplina" required>
                         </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon2"><i class="fas fa-envelope"></i></span>
-                            </div>
-                            <input type="email" id="email_aluno" class="form-control" placeholder="Email do aluno" required>
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon3"><i class="fas fa-phone"></i></i></span>
-                            </div>
-                            <input type="number" id="telefone_aluno" class="form-control" placeholder="Telefone" required>
-                        </div>
-                        <input type="hidden" id="id_aluno">
+                        <input type="hidden" id="id_disciplina">
                     </div>
                     <div id="modal_footer" class="modal-footer">
                         
@@ -95,13 +83,13 @@
     <footer></footer>
 </body>
 
-<script src="js/model/Aluno.js"></script>
-<script src="js/model/AlunoForm.js"></script>
-<script src="js/model/ListAlunos.js"></script>
-<script src="js/view/AlunoView.js"></script>
-<script src="js/controller/AlunoController.js"></script>
+<script src="js/model/Disciplina.js"></script>
+<script src="js/model/DisciplinaForm.js"></script>
+<script src="js/model/ListDisciplinas.js"></script>
+<script src="js/view/DisciplinaView.js"></script>
+<script src="js/controller/DisciplinaController.js"></script>
 
 <script>
-    let aluno = new AlunoController()
+    let disciplina = new DisciplinaController()
 </script>
 </html>

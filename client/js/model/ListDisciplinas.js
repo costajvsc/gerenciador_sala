@@ -1,18 +1,18 @@
-class ListAlunos {
+class ListDisciplinas {
     constructor(){
         this._lista = []
     }
 
-    push(aluno)
+    push(disciplina)
     {
-        this._lista.push(aluno)
+        this._lista.push(disciplina)
     }
 
     pop(){
         this._lista = []
     }
 
-    get alunos(){
+    get disciplinas(){
         return this._lista
     }
 }

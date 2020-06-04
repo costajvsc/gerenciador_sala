@@ -1,52 +1,49 @@
-class AlunoController{
+class SalaController{
     
     constructor(){
         let $ = document.querySelector.bind(document)
-        this._lista = new ListAlunos()
-        this._view = new AlunoView($('#table_alunos'))
-        this._form = new AlunoForm($('#id_aluno'), $('#nome_aluno'), $('#email_aluno'), $('#telefone_aluno'))
+        this._lista = new ListSalas()
+        this._view = new SalaView($('#table_salas'))
+        this._form = new SalaForm($('#id_sala'), $('#localizacao'))
         this._modal = $('#modal_footer')
         this.load()
     }
 
     load(){
-        let url = `http://localhost/gerenciador-sala/server/public/api/alunos`
+        let url = `http://localhost/gerenciador-sala/server/public/api/salas`
 
         fetch(url,{ method: 'GET' }).then(response => {return response.json()})
         .then(data =>
         {
             this._lista.pop()
-            data.forEach(e => this._lista.push(new Aluno(e.id_aluno, e.nome_aluno, e.email_aluno, e.telefone)))
-            this._view.update(this._lista.alunos)
+            data.forEach(e => this._lista.push(new Sala(e.id_sala, e.localizacao)))
+            this._view.update(this._lista.salas)
         })
     }
     
     create(){
         
-        let url = `http://localhost:8000/api/alunos`
+        let url = `http://localhost/gerenciador-sala/server/public/api/salas`
         
         let formData = new FormData()
-        formData.append('nome_aluno', this._form._inputNome.value)
-        formData.append('email_aluno', this._form._inputEmail.value)
-        formData.append('telefone', this._form._inputTelefone.value)
+        formData.append('localizacao', this._form._inputLocalizacao.value)
 
         fetch(url,{  
             method: 'POST',
             body: formData
         }).then(response => {
             if(response.status == 201){
-                swal("Aluno inserido com sucesso.", {icon: "success"})
+                swal("Sala inserido com sucesso.", {icon: "success"})
                 this.load()
             }
             else{
                 swal("Um erro inesperado aconteceu!", {icon: "warning"})
-
             }
         })
     }
 
     fill(id){
-        let url = `http://localhost:8000/api/alunos${id}`
+        let url = `http://localhost/gerenciador-sala/server/public/api/salas/${id}`
 
         fetch(url,{  
             method: 'GET',
@@ -57,23 +54,18 @@ class AlunoController{
             }
             return response.json()
         }).then(data =>{
-            this._form._inputId.value = data.id_aluno
-            this._form._inputNome.value = data.nome_aluno
-            this._form._inputEmail.value = data.email_aluno
-            this._form._inputTelefone.value = data.telefone
+            this._form._inputId.value = data.id_sala
+            this._form._inputLocalizacao.value = data.localizacao
             this._option('update')
         })
     }
 
     update(){
-        swal("Hello World.", {icon: "success"})
 
-        let url = `http://localhost:8000/api/alunos/${this._form._inputId.value}`
+        let url = `http://localhost/gerenciador-sala/server/public/api/salas/${this._form._inputId.value}`
 
         let formData = new FormData()
-        formData.append('nome_aluno', this._form._inputNome.value)
-        formData.append('email_aluno', this._form._inputEmail.value)
-        formData.append('telefone', this._form._inputTelefone.value)
+        formData.append('localizacao', this._form._inputLocalizacao.value)
 
         fetch(url,{  
             method: 'PUT',
@@ -81,7 +73,7 @@ class AlunoController{
         }).then(response => {
             if(response.status == 200){
                 console.log(response)
-                swal("Aluno alterado com sucesso.", {icon: "success"})
+                swal("Sala alterado com sucesso.", {icon: "success"})
                 this.load()
             }
             else{
@@ -92,8 +84,8 @@ class AlunoController{
     delete(id){
         
         swal({
-            title: `Deseja realmente excluir o aluno ${id}?`,
-            text: `Uma vez deletado o aluno não estará mais disponível`,
+            title: `Deseja realmente excluir a sala ${id}?`,
+            text: `Uma vez deletado a sala não estará mais disponível`,
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -101,13 +93,13 @@ class AlunoController{
         .then((willDelete) => {
             if (willDelete) 
             {
-                let url = `http://localhost:8000/api/alunos/${id}`
+                let url = `http://localhost/gerenciador-sala/server/public/api/salas/${id}`
 
                 fetch(url,{   method: 'DELETE' }
                 ).then(response => {
                     if(response.ok)
                     {
-                        swal("Aluno deletado com sucesso.", {icon: "success"})
+                        swal("Sala deletado com sucesso.", {icon: "success"})
                         this.load()
                         return;
                     }
@@ -132,7 +124,7 @@ class AlunoController{
             <i class="fas fa-times mr-1"></i>
             Fechar
         </button>
-        <button type="button" id="submit" class="btn btn-primary" onclick="aluno.${option}()">
+        <button type="button" id="submit" class="btn btn-primary" onclick="sala.${option}()">
             <i class="far fa-save mr-1"></i>
             Salvar
         </button>

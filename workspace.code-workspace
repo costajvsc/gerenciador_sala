@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "..\\gerenciadorSalaOld"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "gerenciador-sala"
+	}
+}
