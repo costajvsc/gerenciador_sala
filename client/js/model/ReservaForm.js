@@ -10,6 +10,9 @@ class ReservaForm{
 
     clear(){
         this._inputId.value = ''
-        this._inputNome.value = ''
+        this._inputDataReserva.value = ''
+        this._inputIdTurma.innerHTML = "<option value='' selected=''>Selecione uma opção</option>"
+        this._inputIdSala.innerHTML = "<option value='' selected=''>Selecione uma opção</option>"
     }
 }
+

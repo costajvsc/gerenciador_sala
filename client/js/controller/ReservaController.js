@@ -3,10 +3,13 @@ class ReservaController{
     constructor(){
         let $ = document.querySelector.bind(document)
         this._lista = new ListReserva()
-        this._view = new ReservaView($('#table_reservas'))
         this._form = new ReservaForm($('#id_reserva'), $('#data_reserva'), $('#periodo'), $('#id_turma'), $('#id_sala'))
-        this._modal = $('#modal_footer')
+        this._view = new ReservaView($('#table_reservas'), $('#modal-title'), $('#modal-footer'), this._form._inputIdTurma, this._form._inputIdSala)
         this.load()
+        this._salas  
+        SalaHelper.load().then(sala => this._salas = sala)
+        this._turmas  
+        TurmaHelper.load().then(turmas => this._turmas = turmas)
     }
 
     load(){
@@ -16,8 +19,8 @@ class ReservaController{
         .then(data =>
         {
             this._lista.pop()
-            data.forEach(e => this._lista.push(new Reserva(e.id_reserva, e.data_reserva, e.periodo, e.id_turma, null, e.id_sala, null)))
-            this._view.update(this._lista.reservas)
+            data.forEach(e => this._lista.push(new Reserva(e.id_reserva, e.data_reserva, e.periodo, e.id_turma, e.nome_disciplina, e.id_sala, e.localizacao)))
+            this._view.table_update(this._lista.reservas)
         })
     }
     
@@ -46,6 +49,7 @@ class ReservaController{
     }
 
     fill(id){
+        this._form.clear()
         let url = `http://localhost/gerenciador-sala/server/public/api/reservas/${id}`
 
         fetch(url,{  
@@ -58,11 +62,13 @@ class ReservaController{
             return response.json()
         }).then(data =>{
             this._form._inputId.value = data.id_reserva
-            this._form._inputDataReserva.value = data.data_reserva
+            let date = new Date(data.data_reserva)
+            this._form._inputDataReserva.value = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
             this._form._inputPeriodo.value = data.periodo
             this._form._inputIdTurma.value = data.id_turma
             this._form._inputIdSala.value = data.id_sala
-            this._option('update')
+            this._view.modal_update('Atualizar', this._turmas, this._salas, 'update')
+            
         })
     }
 
@@ -123,20 +129,7 @@ class ReservaController{
     }
 
     clearForm(){
-        this._option('create')
         this._form.clear()
-    }
-
-    _option(option){
-        this._modal.innerHTML = `
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            <i class="fas fa-times mr-1"></i>
-            Fechar
-        </button>
-        <button type="button" id="submit" class="btn btn-primary" onclick="reserva.${option}()">
-            <i class="far fa-save mr-1"></i>
-            Salvar
-        </button>
-        `
+        this._view.modal_update('Adicionar', this._turmas, this._salas, 'create')
     }
 }

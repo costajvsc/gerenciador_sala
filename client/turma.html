@@ -17,8 +17,8 @@
              <div class="collapse navbar-collapse container" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
 
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Reservas</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="reserva.html">Reservas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="sala.html">Salas</a>
@@ -30,8 +30,8 @@
                         <div class="dropdown-menu" >
                             <a class="dropdown-item" href="aluno.html">Alunos</a>
                             <a class="dropdown-item" href="professor.html">Professores</a>
-                            <a class="dropdown-item" href="#">Disciplina</a>
-                            <a class="dropdown-item" href="#">Turmas</a>
+                            <a class="dropdown-item" href="disciplina.html">Disciplina</a>
+                            <a class="dropdown-item active" href="#">Turmas</a>
                             <a class="dropdown-item" href="chamada.html">Chamada</a>
                         
                         <div class="dropdown-divider"></div>
@@ -58,7 +58,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modal-title">Adicionar</h5>
+                        <h5 class="modal-title" id="modal_title">Adicionar</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -69,11 +69,6 @@
                                 <span class="input-group-text" id="basic-addon2"><i class="fas fa-book"></i></span>
                             </div>
                             <select class="form-control" id="id_disciplinas">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
                             </select>
                         </div>  
                         <div class="input-group mb-3">
@@ -81,11 +76,6 @@
                                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
                             </div>
                             <select class="form-control" id="id_professor">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
                             </select>
                         </div>  
                         <input type="hidden" id="id_turma">
@@ -104,6 +94,12 @@
 <script src="js/model/Turma.js"></script>
 <script src="js/model/TurmaForm.js"></script>
 <script src="js/model/ListTurmas.js"></script>
+<script src="js/model/Disciplina.js"></script>
+<script src="js/model/ListDisciplinas.js"></script>
+<script src="js/model/Professor.js"></script>
+<script src="js/model/ListProfessors.js"></script>
+<script src="js/helper/DisciplinaHelper.js"></script>
+<script src="js/helper/ProfessorHelper.js"></script>
 <script src="js/view/TurmaView.js"></script>
 <script src="js/controller/TurmaController.js"></script>
 

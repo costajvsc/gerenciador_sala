@@ -3,12 +3,19 @@ namespace App\Http\Controllers;
 
 use App\Turma;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TurmaController
 {
     public function index()
     {
-        return Turma::all();
+        $json =  DB::table('turmas')
+                    ->join('professors', 'professors.id_professor', '=', 'turmas.id_professor')
+                    ->join('disciplinas', 'turmas.id_disciplina', '=', 'disciplinas.id_disciplina')
+                    ->select('turmas.id_turma','turmas.id_professor','turmas.id_disciplina', 'disciplinas.nome_disciplina', 'professors.nome_professor')->get();
+
+        $json = json_encode($json);
+        return $json;
     }
 
     public function store(Request $request)
@@ -25,7 +32,12 @@ class TurmaController
 
     public function show(int $id_turma)
     {
-        $turma = Turma::find($id_turma);        
+        $turma = DB::table('turmas')
+        ->join('professors', 'professors.id_professor', '=', 'turmas.id_professor')
+        ->join('disciplinas', 'turmas.id_disciplina', '=', 'disciplinas.id_disciplina')
+        ->select('turmas.id_turma','turmas.id_professor','turmas.id_disciplina', 'disciplinas.nome_disciplina', 'professors.nome_professor')
+        ->where('turmas.id_turma', '=', "{$id_turma}")
+        ->get();        
         
         if(is_null($turma))
             return response()->json('',204);

@@ -31,13 +31,12 @@ class Chamada{
         this._aluno = aluno
     }
 
-    
-    get id_aluno(){
-        return this._id_aluno
+    get turma(){
+        return this._turma
     }
     
-    set id_aluno(id_aluno){
-        this._id_aluno = id_aluno
+    set turma(turma){
+        this._turma = turma
     }
 
     get aluno(){

@@ -3,10 +3,14 @@ class TurmaController{
     constructor(){
         let $ = document.querySelector.bind(document)
         this._lista = new ListTurmas()
-        this._view = new TurmaView($('#table_turmas'))
         this._form = new TurmaForm($('#id_turma'), $('#id_disciplinas'), $('#id_professor'))
+        this._view = new TurmaView($('#table_turmas'), $('#modal_title'), $('#modal_footer'), this._form._inputIdDisciplina, this._form._inputIdProfessor)
         this._modal = $('#modal_footer')
         this.load()
+        this._disciplinas  
+        DisciplinaHelper.load().then(disciplina => this._disciplinas = disciplina)
+        this._professors  
+        ProfessorHelper.load().then(professor => this._professors = professor)
     }
 
     load(){
@@ -16,8 +20,8 @@ class TurmaController{
         .then(data =>
         {
             this._lista.pop()
-            data.forEach(e => this._lista.push(new Turma(e.id_turma, e.id_turma, null, e.id_professor, null)))
-            this._view.update(this._lista.turmas)
+            data.forEach(e => this._lista.push(new Turma(e.id_turma, e.id_turma, e.nome_disciplina, e.id_professor, e.nome_professor)))
+            this._view.table_update(this._lista.turmas)
         })
     }
     
@@ -27,7 +31,7 @@ class TurmaController{
         
         let formData = new FormData()
         formData.append('id_disciplina', this._form._inputIdDisciplina.value)
-        formData.append('id_professor', this._form._inputIdDisciplina.value)
+        formData.append('id_professor', this._form._inputIdProfessor.value)
 
         fetch(url,{  
             method: 'POST',
@@ -58,7 +62,7 @@ class TurmaController{
             this._form._inputIdDisciplina.value = data.id_disciplina
             this._form._inputIdDisciplina.value = data.id_professor
             this._form._inputId.value = id
-            this._option('update')
+            this._view.modal_update('Atualizar', this._disciplinas, this._professors, 'update')
         })
     }
 
@@ -117,20 +121,7 @@ class TurmaController{
     }
 
     clearForm(){
-        this._option('create')
         this._form.clear()
-    }
-
-    _option(option){
-        this._modal.innerHTML = `
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            <i class="fas fa-times mr-1"></i>
-            Fechar
-        </button>
-        <button type="button" id="submit" class="btn btn-primary" onclick="turma.${option}()">
-            <i class="far fa-save mr-1"></i>
-            Salvar
-        </button>
-        `
+        this._view.modal_update('Adicionar', this._disciplinas, this._professors, 'create')
     }
 }

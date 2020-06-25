@@ -1,7 +1,7 @@
 class Reserva{
     constructor(id, dataReserva, periodo, idTurma, turma, idSala, sala){
         this._id = id
-        this._dataReserva = dataReserva
+        this._dataReserva = new Date(dataReserva)
         this._periodo = periodo
         this._idTurma = idTurma
         this._turma = turma

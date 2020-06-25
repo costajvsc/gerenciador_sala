@@ -3,12 +3,20 @@ namespace App\Http\Controllers;
 
 use App\Reserva;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReservaController
 {
     public function index()
     {
-        return Reserva::all();
+        $json =  DB::table('reservas')
+            ->join('turmas', 'reservas.id_turma', '=', 'turmas.id_turma')
+            ->join('salas', 'reservas.id_sala', '=', 'salas.id_sala')
+            ->join('disciplinas', 'turmas.id_disciplina', '=', 'disciplinas.id_disciplina')
+            ->select('reservas.id_reserva','reservas.data_reserva','reservas.periodo', 'reservas.id_turma', 'reservas.id_sala', 'disciplinas.nome_disciplina', 'salas.localizacao')->get();
+
+        $json = json_encode($json);
+        return $json;
     }
 
     public function store(Request $request)

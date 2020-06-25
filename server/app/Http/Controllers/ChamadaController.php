@@ -3,12 +3,20 @@ namespace App\Http\Controllers;
 
 use App\Chamada;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ChamadaController
 {
     public function index()
     {
-        return Chamada::all();
+        $json =  DB::table('chamadas')
+                    ->join('turmas', 'chamadas.id_turma', '=', 'turmas.id_turma')
+                    ->join('alunos', 'chamadas.id_aluno', '=', 'alunos.id_aluno')
+                    ->join('disciplinas', 'turmas.id_disciplina', '=', 'disciplinas.id_disciplina')
+                    ->select('chamadas.id_chamada','chamadas.id_turma','chamadas.id_aluno', 'disciplinas.nome_disciplina', 'alunos.nome_aluno')->get();
+
+        $json = json_encode($json);
+        return $json;
     }
 
     public function store(Request $request)
@@ -25,7 +33,13 @@ class ChamadaController
 
     public function show(int $id_chamada)
     {
-        $chamada = Chamada::find($id_chamada);        
+        $chamada = DB::table('chamadas')
+        ->join('turmas', 'chamadas.id_turma', '=', 'turmas.id_turma')
+        ->join('alunos', 'chamadas.id_aluno', '=', 'alunos.id_aluno')
+        ->join('disciplinas', 'turmas.id_disciplina', '=', 'disciplinas.id_disciplina')
+        ->select('chamadas.id_chamada','chamadas.id_turma','chamadas.id_aluno', 'disciplinas.nome_disciplina', 'alunos.nome_aluno')
+        ->where('chamadas.id_chamada', '=', "{$id_chamada}")
+        ->get();   
         
         if(is_null($chamada))
             return response()->json('',204);

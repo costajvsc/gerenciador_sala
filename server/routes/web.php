@@ -68,3 +68,7 @@ $router->group(['prefix' => '/api'], function () use ($router) {
         $router->delete('/{id_reserva}', 'ReservaController@destroy');
     });
 });
+
+Route::get('/', function () {
+    return view('index');
+});

@@ -7,6 +7,7 @@ class TurmaForm{
 
     clear(){
         this._inputId.value = ''
-        this._inputNome.value = ''
+        this._inputIdDisciplina.innerHTML = "<option value='' selected=''>Selecione uma opção</option>"
+        this._inputIdProfessor.innerHTML = "<option value='' selected=''>Selecione uma opção</option>"
     }
 }

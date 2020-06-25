@@ -23,7 +23,7 @@ class AlunoController{
     
     create(){
         
-        let url = `http://localhost:8000/api/alunos`
+        let url = `http://localhost/gerenciador-sala/server/public/api/alunos`
         
         let formData = new FormData()
         formData.append('nome_aluno', this._form._inputNome.value)
@@ -46,7 +46,7 @@ class AlunoController{
     }
 
     fill(id){
-        let url = `http://localhost:8000/api/alunos${id}`
+        let url = `http://localhost/gerenciador-sala/server/public/api/alunos/${id}`
 
         fetch(url,{  
             method: 'GET',
@@ -66,9 +66,7 @@ class AlunoController{
     }
 
     update(){
-        swal("Hello World.", {icon: "success"})
-
-        let url = `http://localhost:8000/api/alunos/${this._form._inputId.value}`
+        let url = `http://localhost/gerenciador-sala/server/public/api/alunos/${this._form._inputId.value}`
 
         let formData = new FormData()
         formData.append('nome_aluno', this._form._inputNome.value)
@@ -101,7 +99,7 @@ class AlunoController{
         .then((willDelete) => {
             if (willDelete) 
             {
-                let url = `http://localhost:8000/api/alunos/${id}`
+                let url = `http://localhost/gerenciador-sala/server/public/api/alunos/${id}`
 
                 fetch(url,{   method: 'DELETE' }
                 ).then(response => {

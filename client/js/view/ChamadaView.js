@@ -1,6 +1,10 @@
 class ChamadaView{
-    constructor(element){
+    constructor(element, modal_title, modal_footer, input_turma, input_aluno){
         this._element = element
+        this._modal_footer = modal_footer
+        this._modal_title = modal_title
+        this._input_turma = input_turma
+        this._input_aluno = input_aluno
     }
 
     _template(model){
@@ -29,8 +33,37 @@ class ChamadaView{
             </tbody>
         `
     }
-    update(model){
+    table_update(model){
         this._element.innerHTML = ''
         this._element.innerHTML = this._template(model)
+    }
+    modal_update(title, listTurma, listAlunos, option){
+        this._modal_title.innerHTML = title
+
+        listTurma.forEach(e => {
+            this._factory(this._input_turma, e._id, e._disciplina)
+        })
+
+        listAlunos.forEach(e => {
+            this._factory(this._input_aluno, e._id, e._nome)
+        })
+        
+        this._modal_footer.innerHTML = `
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <i class="fas fa-times mr-1"></i>
+            Fechar
+        </button>
+        <button type="button" id="submit" class="btn btn-primary" onclick="chamada.${option}()">
+            <i class="far fa-save mr-1"></i>
+            Salvar
+        </button>
+        `
+    }
+
+    _factory(element, value, text) {
+        let option = document.createElement('option')
+        option.value = value
+        option.text = text
+        element.appendChild(option)
     }
 }

@@ -17,8 +17,8 @@
              <div class="collapse navbar-collapse container" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
 
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Reservas</a>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Reservas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="sala.html">Salas</a>
@@ -30,8 +30,8 @@
                         <div class="dropdown-menu" >
                             <a class="dropdown-item" href="aluno.html">Alunos</a>
                             <a class="dropdown-item" href="professor.html">Professores</a>
-                            <a class="dropdown-item" href="#">Disciplina</a>
-                            <a class="dropdown-item" href="#">Turmas</a>
+                            <a class="dropdown-item" href="disciplina.html">Disciplina</a>
+                            <a class="dropdown-item" href="turma.html">Turmas</a>
                             <a class="dropdown-item" href="chamada.html">Chamada</a>
                         
                         <div class="dropdown-divider"></div>
@@ -57,8 +57,9 @@
         <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="false">
             <div class="modal-dialog">
                 <div class="modal-content">
+                    
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modal-title">Adicionar</h5>
+                        <h5 class="modal-title" id="modal-title"></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -82,28 +83,22 @@
                                 <option value="Integral">Integral</option>
                             </select>
                         </div>  
-
+        
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon2"><i class="fas fa-book"></i></span>
                             </div>
-                            <select class="form-control" id="id_turma">
-                                <option>1</option>
-                            </select>
+                            <select class="form-control" id="id_turma"></select>
                         </div>  
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
                             </div>
-                            <select class="form-control" id="id_sala">
-                                <option>1</option>
-                            </select>
+                            <select class="form-control" id="id_sala"></select>
                         </div>  
                         <input type="hidden" id="id_reserva">
                     </div>
-                    <div id="modal_footer" class="modal-footer">
-                        
-                    </div>
+                    <div class="modal-footer" id="modal-footer"></div>
                 </div>
             </div>
         </div>
@@ -113,8 +108,14 @@
 </body>
 
 <script src="js/model/Reserva.js"></script>
+<script src="js/model/Sala.js"></script>
+<script src="js/model/Turma.js"></script>
 <script src="js/model/ReservaForm.js"></script>
 <script src="js/model/ListReserva.js"></script>
+<script src="js/model/ListSalas.js"></script>
+<script src="js/model/ListTurmas.js"></script>
+<script src="js/helper/SalaHelper.js"></script>
+<script src="js/helper/TurmaHelper.js"></script>
 <script src="js/view/ReservaView.js"></script>
 <script src="js/controller/ReservaController.js"></script>
 

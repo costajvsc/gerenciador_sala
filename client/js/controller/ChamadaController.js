@@ -3,10 +3,14 @@ class ChamadaController{
     constructor(){
         let $ = document.querySelector.bind(document)
         this._lista = new ListChamada()
-        this._view = new ChamadaView($('#table_chamadas'))
         this._form = new ChamadaForm($('#id_chamada'), $('#id_turma'), $('#id_aluno'))
+        this._view = new ChamadaView($('#table_chamadas'), $('#modal-title'), $('#modal_footer'), this._form._inputIdTurma, this._form._inputIdAluno)
         this._modal = $('#modal_footer')
         this.load()
+        this._alunos  
+        AlunoHelper.load().then(aluno => this._alunos = aluno)
+        this._turmas  
+        TurmaHelper.load().then(turmas => this._turmas = turmas)
     }
 
     load(){
@@ -16,8 +20,8 @@ class ChamadaController{
         .then(data =>
         {
             this._lista.pop()
-            data.forEach(e => this._lista.push(new Chamada(e.id_chamada, e.id_turma, null, e.id_aluno, null)))
-            this._view.update(this._lista.chamadas)
+            data.forEach(e => this._lista.push(new Chamada(e.id_chamada, e.id_turma, e.nome_disciplina, e.id_aluno, e.nome_aluno)))
+            this._view.table_update(this._lista.chamadas)
         })
     }
     
@@ -43,6 +47,7 @@ class ChamadaController{
     }
 
     fill(id){
+        this._form.clear()
         let url = `http://localhost/gerenciador-sala/server/public/api/chamadas/${id}`
 
         fetch(url,{  
@@ -54,10 +59,12 @@ class ChamadaController{
             }
             return response.json()
         }).then(data =>{
-            this._form._inputId.value = data.id_chamada
+            this._form._inputId.value = id
             this._form._inputIdTurma.value = data.id_turma
+            this._form._inputIdTurma.text = data.nome_disciplina
             this._form._inputIdAluno.value = data.id_turma
-            this._option('update')
+            this._form._inputIdAluno.text = data.nome_aluno
+            this._view.modal_update('Atualizar', this._turmas, this._alunos, 'update')
         })
     }
 
@@ -68,13 +75,11 @@ class ChamadaController{
         let formData = new FormData()
         formData.append('id_turma', this._form._inputIdTurma.value)
         formData.append('id_aluno', this._form._inputIdAluno.value)
-
         fetch(url,{  
             method: 'PUT',
             body: formData
         }).then(response => {
             if(response.status == 200){
-                console.log(response)
                 swal("Sala alterado com sucesso.", {icon: "success"})
                 this.load()
             }
@@ -116,20 +121,8 @@ class ChamadaController{
     }
 
     clearForm(){
-        this._option('create')
         this._form.clear()
+        this._view.modal_update('Adicionar', this._turmas, this._alunos, 'create')
     }
 
-    _option(option){
-        this._modal.innerHTML = `
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            <i class="fas fa-times mr-1"></i>
-            Fechar
-        </button>
-        <button type="button" id="submit" class="btn btn-primary" onclick="chamada.${option}()">
-            <i class="far fa-save mr-1"></i>
-            Salvar
-        </button>
-        `
-    }
 }
